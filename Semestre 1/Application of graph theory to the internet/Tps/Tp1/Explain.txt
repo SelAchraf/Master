@@ -1,0 +1,55 @@
+----------------------------------------------------------- Creating the Graph from the Adjacency Matrix -----------------------------------------------------------
+
+G = nx.from_numpy_array(matrix)
+
+Purpose: This line converts the matrix (a NumPy array representing the adjacency matrix) into a NetworkX graph.
+
+How it works:
+	The function nx.from_numpy_array(matrix) creates a graph where:
+	Each row and column of the matrix represents a node.
+	A value of 1 in the matrix indicates an edge between the corresponding nodes.
+	A value of 0 means there is no edge.
+
+Result :
+	Graph G: {0, 1, 2}
+	Edges: [(0, 1), (1, 2)]
+
+----------------------------------------------------------- Relabeling Nodes with Actual Names -----------------------------------------------------------
+
+mapping = dict(zip(range(nbr_sommets), Liste_sommets))
+G = nx.relabel_nodes(G, mapping)
+
+Purpose: NetworkX assigns nodes numeric labels (0, 1, 2, …) when creating the graph from the matrix. This step replaces these numeric labels with the names from your list Liste_sommets.
+
+How it works:
+	range(nbr_sommets) generates numbers from 0 to nbr_sommets - 1.
+	zip(range(nbr_sommets), Liste_sommets) pairs these numbers with the corresponding vertex names.
+	dict() converts these pairs into a dictionary, e.g., {0: 'A', 1: 'B', 2: 'C'}.
+	nx.relabel_nodes(G, mapping) updates the node labels in the graph based on this dictionary.
+	
+Result :
+	mapping = {0: 'A', 1: 'B', 2: 'C'}
+	Graph G: {'A', 'B', 'C'}
+	Edges: [('A', 'B'), ('B', 'C')]
+
+----------------------------------------------------------- Drawing the Graph -----------------------------------------------------------
+
+plt.figure(figsize=(8, 6))
+nx.draw(G, with_labels=True, node_color='lightblue', node_size=2000, font_size=15, font_weight='bold', edge_color='gray')
+plt.title("Graph Visualization")
+plt.show()
+
+Purpose: This block uses Matplotlib to visualize the graph.
+
+Explanation:
+
+	plt.figure(figsize=(8, 6)): Creates a Matplotlib figure with a size of 8 inches by 6 inches.
+	nx.draw(G, ...): Draws the graph G with the following options:
+		with_labels=True: Displays the node names.
+		node_color='lightblue': Colors the nodes light blue.
+		node_size=2000: Sets the size of each node.
+		font_size=15: Sets the font size of the node labels.
+		font_weight='bold': Makes the labels bold.
+		edge_color='gray': Colors the edges gray.
+	plt.show(): Displays the graph on the screen.
+
