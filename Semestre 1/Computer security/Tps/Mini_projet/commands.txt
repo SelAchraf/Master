@@ -1,0 +1,13 @@
+/usr/bin/python "/home/shito/Computer Security/Validation_2/network_attack_tool.py"
+
+======================================================================= SYN Flood =======================================================================
+
+# Get my ip address => ip add
+# See all connected devices on my network => nmap -sn my_ip_address
+msfconsole
+search synflood 
+use auxiliary/dos/tcp/synflood
+auxiliary(dos/tcp/synflood) > show options
+
+======================================================================= UDP Flood =======================================================================
+

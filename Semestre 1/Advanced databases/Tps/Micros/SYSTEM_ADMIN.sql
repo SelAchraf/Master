@@ -1,0 +1,1 @@
+SELECT nomMembre, nationalite, adresse, m.ref_grp.nomgroupe FROM membre m WHERE nationalite != 'algerien';

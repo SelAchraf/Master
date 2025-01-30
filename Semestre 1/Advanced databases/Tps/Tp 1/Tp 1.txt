@@ -1,0 +1,110 @@
+------------------------------- Création de nouveaux types -------------------------------
+
+CREATE TYPE adresse_type AS OBJECT
+(numero integer, rue varchar(30), ville varchar(20));
+
+CREATE TYPE departement_type AS OBJECT 
+(numDept smallint, nomDept varchar(20), lieu varchar(50));
+
+CREATE TYPE employe_type AS OBJECT 
+(matricule smallint, nom varchar(30), adresse adresse_type, salaire decimal(8,2), superieur ref  employe_type, departement ref departement_type);
+
+CREATE TABLE employe OF employe_type 
+(primary key (matricule)); 
+
+CREATE TABLE departement OF departement_type 
+(primary key (numDept));
+
+DESC type_name_or_table_name; => verifier si le type est creer correctement et voir tous le contenu du ce type
+
+DROP TYPE type_name; => supprimer un type
+
+DROP TABLE table_name; => supprimer une table
+
+SELECT type_name FROM user_types;
+
+------------------------------- Ajouter des données dans les nouvelles tables -------------------------------
+
+INSERT INTO departement (numdept, nomDept, lieu) values(10, 'Direction', 'Nice');
+
+INSERT INTO departement values(departement_type(20, 'Compatibilite', 'Marseille'));
+
+INSERT INTO employe (matricule, nom, adresse, salaire, superieur, departement) values(125, 'Dupond', adresse_type(15, 'rue Victor Hugo', 'Nice'), 12500, null, null);
+
+INSERT INTO employe (matricule, nom, salaire, superieur, departement) values(200, 'Leroy', 25000, null, null);
+
+INSERT INTO employe (matricule, nom, salaire, superieur, departement) 
+SELECT 210, 'Ravier', 25000, ref(e), ref(d) 
+FROM employe e, departement d 
+WHERE e.matricule = 125 and d.numdept = 10;
+
+-------------------------------
+
+# First method
+
+INSERT INTO employe (matricule, nom, salaire, superieur, departement) 
+SELECT 300, 'Toto', 20000, ref(e), ref(d) 
+FROM employe e, departement d 
+WHERE e.matricule = 210 and d.numdept = 10;
+
+# Second method
+
+INSERT INTO employe (matricule, nom, salaire, superieur, departement) 
+values (300, 'Toto', 20000,
+(SELECT ref(e) FROM employe e WHERE e.matricule = 210),
+(SELECT ref(d) FROM departement d WHERE d.numdept  = 10),
+);
+
+-------------------------------
+
+SELECT matricule, nom, e.adresse.ville, e.superieur.nom, e.departement.lieu FROM employe e;
+
+SELECT nom, e.departement.numdept FROM employe e WHERE e.departement.numdept = 10;
+
+------------------------------- Modifier les données -------------------------------
+
+-------------------------------
+
+# First method
+
+UPDATE employe SET departement = (SELECT ref(d) FROM departement d WHERE numdept = 10) WHERE matricule = 125;
+
+UPDATE employe SET superieur = (SELECT ref(e) FROM employe e WHERE matricule = 200) WHERE matricule = 125;
+
+# second method
+
+UPDATE employe 
+SET superieur = (SELECT ref(e) FROM employe e WHERE matricule = 200),
+    departement = (SELECT ref(d) FROM departement d WHERE numDept = 10)
+WHERE matricule = 125;
+
+-------------------------------
+
+SELECT matricule, nom, salaire, e.superieur.nom, e.departement.numDept FROM employe e;
+
+UPDATE employe SET superieur = (SELECT ref(e) FROM employe e WHERE matricule = 200) 
+WHERE departement = (SELECT ref(d) FROM departement d WHERE numDept = 10);
+
+------------------------------- Array -------------------------------
+
+CREATE TYPE listePrenoms AS VARRAY(4) OF varchar(20);
+
+CREATE TYPE personne_type AS OBJECT (nom varchar(30), prenoms listePrenoms);
+
+CREATE TABLE Personne OF personne_type (primary key(nom));
+
+INSERT INTO Personne values('Machin', listePrenoms('Bernard', 'Alain'));
+
+------------------------------- Héritage -------------------------------
+
+ALTER TYPE personne_type not final cascade;
+
+CREATE TYPE travailleur_type under personne_type (salaire numeric(8,2));
+
+CREATE TABLE travailleur OF travailleur_type (primary key(nom));
+
+INSERT INTO travailleur (nom, prenoms, salaire) values('Machin', listePrenoms('Bernard', 'Alain'), 5000);
+
+-------------------------------------------------------------
+
+UPDATE employe set adresse = adresse_type(null,null,'Annaba') WHERE nom in ('Leroy', 'Ravier', 'Toto');

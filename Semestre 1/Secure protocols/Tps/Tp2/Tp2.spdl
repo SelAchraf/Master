@@ -1,0 +1,37 @@
+hashfunction H;
+
+protocol Needhamsch (A, B) {
+
+	role A {
+		const Na: Nonce;
+		var Nb : Nonce;
+
+		send_1(A, B, {Na, A, {H(Na, A)}sk(A)}pk(B));
+
+		recv_2(B, A, {Nb, Na, B, {H(Nb, Na, B)}sk(B)}pk(A));
+
+		send_3(A, B, {Nb, A, B, {H(Nb, A, B)}sk(A)}pk(B));
+
+		claim_A1(A, Secret, Nb);
+		claim_A2(A, Nisynch);
+	}
+
+	role B {
+		var Na: Nonce;
+		const Nb : Nonce;
+
+		recv_1(A, B, {Na, A, {H(Na, A)}sk(A)}pk(B));
+
+		send_2(B, A, {Nb, Na, B, {H(Nb, Na, B)}sk(B)}pk(A));
+
+		recv_3(A, B, {Nb, A, B, {H(Nb, A, B)}sk(A)}pk(B));
+
+		claim_B1(B, Secret, Nb);
+		claim_B2(B, Nisynch);
+	}
+}
+
+const shito: Agent;
+untrusted shito;
+const Nb: Nonce;
+compromised Nb(shito);

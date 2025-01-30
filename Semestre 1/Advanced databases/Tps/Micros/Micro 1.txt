@@ -1,0 +1,17 @@
+CREATE TYPE T_groupe AS OBJECT (idgroupe number(2), nomgroupe varchar(20), pays varchar(20), categorie varchar(2));
+
+CREATE TYPE T_membre AS OBJECT (numMembre number(5), nomMembre varchar(20), adresse varchar(30), nationalite varchar(20), typeMembre varchar(15), ref_grp REF T_groupe);
+
+CREATE TABLE groupe OF T_groupe (PRIMARY KEY (idgroupe));
+
+CREATE TABLE membre OF T_membre (PRIMARY KEY (numMembre));
+
+INSERT INTO membre VALUES(T_membre(200, 'achraf', 'annaba', 'algerien', 'etudiant', null));
+
+SELECT nomMembre, nationalite, adresse, m.ref_grp.nomgroupe FROM membre m WHERE nationalite != 'algerien';
+
+SELECT m.ref_grp.nomgroupe, COUNT(*) AS Nbr_membres FROM membre m GROUP BY m.ref_grp.nomgroupe;
+
+INSERT INTO membre VALUES(T_membre(100, 'badis', '20 kouba, alger', 'grecque', 'guide', (SELECT ref_grp FROM membre WHERE numMembre = 200)));
+
+UPDATE membre SET nationalite = (SELECT nationalite FROM membre WHERE numMembre = 100) WHERE numMembre = 200;

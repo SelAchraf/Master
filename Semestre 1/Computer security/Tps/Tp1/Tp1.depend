@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1730301196 source:c:\users\ralva\desktop\computer security\tps\tp1\main.c
+	<windows.h>
+	<stdio.h>
+

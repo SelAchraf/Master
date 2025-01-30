@@ -1,0 +1,113 @@
+---------------------------------------------------------------- Objets colonnes ----------------------------------------------------------------
+
+CREATE TYPE T_Adressage AS OBJECT
+(IP varchar(15), DNS varchar(100));
+
+CREATE TYPE T_Localisation AS OBJECT
+(Campus varchar(50), Batiment varchar(20), Salle number(3));
+
+DESC T_Adressage;
+
+DESC T_Localisation;
+
+DESC T_Serveur;
+
+CREATE TYPE T_Serveur AS OBJECT
+(NumServ number(3), Adressage T_Adressage, Localisation T_Localisation);
+
+CREATE TABLE Serveur OF T_Serveur (primary key(NumServ));
+
+DESC Serveur;
+
+INSERT INTO Serveur values(0, T_Adressage('159.84.143.204', 'www.univ-lyon2.fr'), T_Localisation('Berges du Rhone', 'Pasteur', 1));
+INSERT INTO Serveur values(1, T_Adressage('159.84.143.120', 'eric.univ-lyon2.fr'), T_Localisation('Porte des Alpes', 'L', 4));
+INSERT INTO Serveur values(2, T_Adressage('159.84.128.249', 'bdd.univ-lyon2.fr'), T_Localisation('Porte des Alpes', 'L', 9));
+INSERT INTO Serveur values(3, T_Adressage('159.84.128.252', 'dis.univ-lyon2.fr'), T_Localisation('Porte des Alpes', 'L', 4));
+INSERT INTO Serveur values(4, T_Adressage('159.84.128.251', 'diserv.univ-lyon2.fr'), T_Localisation('Porte des Alpes', 'L', 4));
+INSERT INTO Serveur values(5, T_Adressage('159.84.128.250', 'disora.univ-lyon2.fr'), T_Localisation('Porte des Alpes', 'L', 12));
+
+SELECT s.Adressage.DNS, s.Localisation.Campus FROM Serveur s;
+
+SELECT s.Adressage.IP, s.Adressage.DNS FROM Serveur s WHERE s.Localisation.Campus = 'Porte des Alpes';
+ 	
+SELECT s.Localisation.Salle, COUNT(*) AS number_of_serveurs FROM Serveur s WHERE s.Localisation.Batiment='L' GROUP BY s.Localisation.Salle;
+
+---------------------------------------------------------------- Objets lignes ----------------------------------------------------------------
+
+CREATE TYPE T_Administrateur AS OBJECT
+(NumAdm number(2), Nom varchar(20), NumPoste number(4), RefAdmin REF T_Serveur);
+
+CREATE TABLE Administrateur OF T_Administrateur (primary key(NumAdm))
+OBJECT IDENTIFIER IS PRIMARY KEY;
+
+DESC Administrateur;
+
+INSERT INTO Administrateur (NumAdm, Nom, NumPoste, RefAdmin) values(0, 'SENTIER', 3131, null);
+
+INSERT INTO Administrateur (NumAdm, Nom, NumPoste, RefAdmin) values(1, 'Darmont', 1103, null);
+
+SELECT * FROM Administrateur;
+
+SELECT VALUE(a) FROM Administrateur a;
+
+update Administrateur set nom='achraf' where nom ='Darmont';
+
+DECLARE
+    un_admin T_Administrateur;
+BEGIN
+    un_admin := NEW T_Administrateur (2, 'Achraf', 2300, null);
+    DBMS_OUTPUT.PUT_LINE(un_admin.NumAdm || '/' || un_admin.Nom || '/' || un_admin.NumPoste);
+END;
+
+---------------------------------------------------------------- References ----------------------------------------------------------------
+
+ALTER TYPE T_Serveur ADD ATTRIBUTE RefAdmin REF T_Administrateur CASCADE;
+
+DESC Serveur;
+
+UPDATE Serveur
+SET RefAdmin = (SELECT REF(a) FROM Administrateur a WHERE a.NumAdm = 0)
+WHERE NumServ = 0;
+
+---------------------------------------------------------
+Erreur à la ligne de commande: 1 Colonne: 8
+Rapport d'erreur -
+Erreur SQL : ORA-22979: impossible d'insérer une REF d'une vue objet ou une REF définie par l'utilisateur
+
+https://docs.oracle.com/error-help/db/ora-22979/22979. 00000 -  "cannot INSERT object view REF or user-defined REF"
+*Cause:    An attempt was made to insert an object view REF or user-defined
+           REF in a REF column created to store system-generated REF values.
+*Action:   Ensure that the REF to be inserted is not from an object view
+           or from a user-defined REF column.
+---------------------------------------------------------
+
+DROP TABLE Administrateur;
+
+CREATE TABLE Administrateur OF T_Administrateur (primary key(NumAdm));
+
+INSERT INTO Administrateur (NumAdm, Nom, NumPoste, RefAdmin) values(0, 'SENTIER', 3131, null);
+
+INSERT INTO Administrateur (NumAdm, Nom, NumPoste, RefAdmin) values(1, 'Darmont', 1103, null);
+
+UPDATE Serveur
+SET RefAdmin = (SELECT REF(a) FROM Administrateur a WHERE a.NumAdm = 0)
+WHERE NumServ = 0;
+
+---------------------------------------------------------
+Oui 
+---------------------------------------------------------
+
+UPDATE Serveur
+SET RefAdmin = (SELECT REF(a) FROM Administrateur a WHERE a.NumAdm = 1)
+WHERE NumServ > 0;
+
+SELECT s.Adressage.DNS FROM Serveur s WHERE s.RefAdmin.NumAdm = 1;
+
+SELECT s.RefAdmin.Nom FROM Serveur s WHERE s.Localisation.Campus = 'Berges du Rhone';
+
+SELECT DEREF(RefAdmin) FROM Serveur
+WHERE NumServ = 4;
+
+=========================================================================
+
+ALTER TABLE SERVEUR ADD (RefAdmin REF T_Administrateur);

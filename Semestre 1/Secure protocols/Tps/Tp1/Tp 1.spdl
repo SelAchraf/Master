@@ -1,0 +1,37 @@
+protocol needham (A, B, S) {        
+	secret Ka, Kb, Kab: SessionKey; 
+        role A {          
+		const Na, Nb-1: Nonce;
+		var Ns, Nb: Nonce;
+		var Kab: SessionKey; 
+		send_1(A, S, {A, B, Na}Ka); 
+		recv_2(S, A, {Na, B, Kab, {Kab, A, Ns}Kb}Ka);         
+		send_3(A, B, {Kab, A, Ns}Kb); 
+		recv_4(B, A, {Nb}Kab);         
+		send_5(A, B, {Nb-1}Kab); 
+		claim_A1(A, Secret, Kab);
+		claim_A2(A, Nisynch);
+	}     
+	role S {      
+		var Na: Nonce;
+		const Ns: Nonce;   
+		const Kab: SessionKey; 
+		recv_1(A, S, {A, B, Na}Ka); 
+		send_2(S, A, {Na, B, Kab, {Kab, A, Ns}Kb}Ka);         
+		claim_S1(S, Secret, Kab);         
+		claim_S2(S, Nisynch); 
+	}     
+	role B {         
+		const Nb: Nonce; 
+		var Ns, Nb-1: Nonce;        
+		var Kab: SessionKey; 
+		recv_3(A, B, {Kab, A, Ns}Kb);         
+		send_4(B, A, {Nb}Kab); 
+		recv_5(A, B, {Nb-1}Kab);         
+		claim_B1(B, Secret, Kab);
+		claim_B2(B, Nisynch);     
+	} 
+}
+const Kab: SessionKey;
+const shito : Agent;
+untrusted shito;
