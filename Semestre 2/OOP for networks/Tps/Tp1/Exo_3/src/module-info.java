@@ -4,5 +4,5 @@
 /**
  * 
  */
-module exo_2 {
+module exo_3 {
 }
