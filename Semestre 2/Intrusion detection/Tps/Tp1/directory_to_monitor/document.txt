@@ -1,0 +1,4 @@
+This is a sample text file.
+It contains some random content for testing purposes.
+You can use this file to check how your program handles text files.
+Lines can be added or removed to test modifications.

@@ -1,0 +1,13 @@
+{
+  "app_name": "File Monitor",
+  "version": "1.0.0",
+  "settings": {
+    "auto_save": true,
+    "backup_enabled": true,
+    "interval": 60
+  },
+  "users": [
+    {"id": 1, "name": "Alice"},
+    {"id": 2, "name": "Bob"}
+  ]
+}
