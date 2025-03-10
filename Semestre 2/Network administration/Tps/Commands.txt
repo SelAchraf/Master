@@ -1,0 +1,13 @@
+enable
+config t
+vlan 2
+name vlan_name
+exit
+show vlan brief
+config t
+interface interface_id
+switchport mode access
+switchport access vlan 2
+no vlan 2
+switchport trunk allowed vlan 2
+switchport trunk allowed vlan all
