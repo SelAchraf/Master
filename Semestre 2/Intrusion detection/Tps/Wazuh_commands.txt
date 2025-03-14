@@ -1,0 +1,51 @@
+=============================== Install wazuh agent ===============================
+
+wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.11.0-1_amd64.deb && sudo WAZUH_MANAGER='192.168.81.111' WAZUH_AGENT_NAME='agent_2' dpkg -i ./wazuh-agent_4.11.0-1_amd64.deb
+
+=============================== Enable wazuh agent ===============================
+
+sudo systemctl daemon-reload
+sudo systemctl enable wazuh-agent
+sudo systemctl start wazuh-agent
+
+=============================== Restart wazuh agent ===============================
+
+sudo systemctl restart wazuh-agent
+
+=============================== Delete wazuh agent ===============================
+
+sudo systemctl stop wazuh-agent
+sudo apt-get remove --purge wazuh-agent
+sudo rm -rf /var/ossec/
+sudo systemctl status wazuh-agent
+sudo nano /etc/apt/sources.list.d/wazuh.list
+sudo apt-get update
+sudo apt-get autoremove
+
+=============================== Ossec.conf path ===============================
+
+/var/ossec/etc/ossec.conf
+
+=============================== Add vulnerability detection (ossec.conf) ===============================
+
+<!-- Vulnerability detection -->
+  <wodle name="vulnerability-detector">
+    <disabled>no</disabled>
+    <interval>12h</interval>
+    <min_full_scan_interval>6h</min_full_scan_interval>
+    <run_on_start>yes</run_on_start>
+
+    <!-- Ubuntu 22.04 vulnerability sources -->
+    <provider name="canonical">
+      <enabled>yes</enabled>
+      <os>ubuntu</os>
+      <os_version>22.04</os_version>
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <!-- National Vulnerability Database (NVD) -->
+    <provider name="nvd">
+      <enabled>yes</enabled>
+      <update_interval>1h</update_interval>
+    </provider>
+  </wodle>
