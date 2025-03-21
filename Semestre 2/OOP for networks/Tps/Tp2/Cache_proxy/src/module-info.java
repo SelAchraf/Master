@@ -4,6 +4,5 @@
 /**
  * 
  */
-module exo_3 {
-	
+module cache_proxy {
 }
