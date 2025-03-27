@@ -27,31 +27,3 @@ exit
 show ip route
 
 no ip route addr_reseau mask_ip_addr next_hop_ip_addr
-
-=================================================
-
-en 
-config t
-enable secret RSI2025
-
-================================================= Configuration du router pour ajouter an snmp agent =================================================
-
-en 
-config t
-snmp-server community administration-public RO => administration-public houwa ism n7to wch n7bou 7na
-snmp-server community administration-preve RW => administration-preve houwa ism n7to wch n7bou 7na
-
-nro7o ll pc li fih l admin w nroso fih mb3ed nroso fi desktop mb3ed mib browser mb3ed advanced mb3ed fl address n7ato l'adresse te3 linterface li mrbota m3a router li configurineh w fl read community 7ato administration-public w fl write community n7ato administration-preve
-
-ki nkmlou nro7o l .sysDescr w nselectioniw get comme operation a nroso 3la go
-
-aia tkhrjlna les info 3la OID
-la question 5 => OID = 1.3.6.1.2.1.1.1.0 (OID du .sysDescr)
-la question 6 => value = wa9t et OID = 1.3.6.1.2.1.1.3.0 (OID du .sysUpTime)
-la question 7 => value = Router et OID = 1.3.6.1.2.1.1.5.0 (OID du .sysName) 
-
-Donc: tous les OID sont les meme sauf le 2 dernier nombres psq kaml teb3in ll group .system
-
-la question 8 => nro7o ll .ipRouteTable mb3ed .ipRouteNextHop
-		 OID = 1.3.6.1.2.1.4.21.1.7
-		 l'adress du next hop = 192.168.1.254
