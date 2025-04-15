@@ -1,3 +1,5 @@
+/home/shito/Master/Semestre 2/Intrusion detection/Tps/Tp1/directory_to_monitor/dvcwdcw|e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+/home/shito/Master/Semestre 2/Intrusion detection/Tps/Tp1/directory_to_monitor/rgier|e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 /home/shito/Master/Semestre 2/Intrusion detection/Tps/Tp1/directory_to_monitor/document.txt|547fa343c6895beebb102d6a2fc740e9ab728bc90008b4ce83fab30f08cc9fa1
 /home/shito/Master/Semestre 2/Intrusion detection/Tps/Tp1/directory_to_monitor/coonfig.json|bd35daf30198a9725272a0448bd92a686cd1e8ddeab8dc468767ec5e4dab320d
 /home/shito/Master/Semestre 2/Intrusion detection/Tps/Tp1/directory_to_monitor/data.csv|f768e4eeb33e4554a2f4ad437849ca065705fcb41cfa021ddc9741df5bb0f6a1
