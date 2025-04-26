@@ -1,0 +1,164 @@
+========================================================= Create the idl file =========================================================
+
+- We create the idl file 'helloApp.idl' and it contains the remote methods without a body (because it is an interface)
+
+- The methods parameters must start with the modificator 'in' or 'out' or 'inout' placed before the parameter type
+
+- We must declarate the not defined types, ex:
+    struct Compte{
+        long code;
+        float solde;
+    };
+
+- To declarate a table of Compte we do it like this:
+    typedef sequence<Compte> tabComptes;
+
+- The content of the idl file for out tp is:
+    module HelloApp{
+        interface Hello{
+            string sayHello();
+            oneway void shutdown();
+        };
+    };
+
+========================================================= Compile the idl file =========================================================
+
+- idlj -fall helloApp.idl
+
+- The '-fall' used to generate both of stubs and skeletons
+
+- The skeletons is the file who ends with POA (Portable Object Adapter)
+
+- The stub is the file who ends with Stub
+
+- The corresponding interface we declare in the idl file is the file that ends with Operations
+
+========================================================= Create the remote class =========================================================
+
+- We create a java project 'CorbaServerJindi'
+
+- We add the idl file 'helloApp.idl' inside the src folder (default package) and we compile it
+
+- We create a java class 'HelloImpl' inside the src folder (default package)
+    import HelloApp.*;
+    import org.omg.CORBA.*;
+
+
+    class HelloImpl extends HelloPOA {
+        //Créer et initialiser une instance ORB
+        private ORB orb;
+        public void setORB(ORB orb_val) { orb = orb_val; }
+
+        // implement sayHello() method
+        public String sayHello() { return "\nHello world !!\n"; }
+
+        // implement shutdown() method
+        public void shutdown() { orb.shutdown(false); } 
+    }
+
+========================================================= Create the corba server class =========================================================
+
+- We crate a java class 'HelloServer' inside the src folder (default package) and it contains this code:
+    import org.omg.CORBA.ORB;
+    import org.omg.PortableServer.POA;
+    import org.omg.PortableServer.POAHelper;
+    import javax.naming.Context;
+    import javax.naming.InitialContext;
+    import java.util.Hashtable;
+
+    public class HelloServer {
+        public static void main(String[] args) {
+            ORB orb = ORB.init(args, null);
+            // initialiser l'ORB
+
+            try {
+                // Configure JNDI properties for CORBA Naming Service
+                Hashtable<String, String> env = new Hashtable<>();
+                env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.cosnaming.CNCtxFactory");
+                env.put(Context.PROVIDER_URL, "iiop://localhost:1050");
+                Context ctx = new InitialContext(env);
+                // il faut importer le package javax.naming
+
+                POA rootPoa = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
+                rootPoa.the_POAManager().activate();
+
+                // instancier l'objet servant:
+                HelloImpl helloImpl = new HelloImpl();
+
+                // passer la reference orb à la méthode setORB pour que ORBShutdown puisse être appelé
+                helloImpl.setORB(orb);
+
+                ctx.rebind("RSI2020", rootPoa.servant_to_reference(helloImpl));
+                /* maintenant le client utilisera RSI2020 pour retrouver la ref vers l'objet servant hello */
+
+                System.out.println("Hello! server waiting....");
+                // attendre l'invocation du client
+
+                orb.run();
+                /* l'ORB rentrera en attente après la fin de l'invocation, c'est pour cela que le client doit l'arrêter lorsqu'il termine ses appels, shutdown() */
+            } catch (Exception e) {
+                System.err.println("Error: " + e);
+                e.printStackTrace(System.out);
+            }
+        }
+    }
+
+- .narrow is used for the casting to POAHelper
+
+========================================================= Create the corba client class =========================================================
+
+- We create a java project 'CorbaClientJindi'
+
+- We add the idl file 'helloApp.idl' inside the src folder (default package) and we compile it
+
+- We create a java class 'HelloClient' inside the src folder (default package) and it contains this code:
+    import org.omg.CORBA.Object;
+    import javax.naming.Context;
+    import javax.naming.InitialContext;
+    import java.util.Hashtable;
+    import HelloApp.Hello;
+    import HelloApp.HelloHelper;
+
+    public class HelloClient {
+        static Hello helloImplstub;
+
+        public static void main(String[] args) {
+            try {
+                // Configure JNDI properties for CORBA Naming Service
+                Hashtable<String, String> env = new Hashtable<>();
+                env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.cosnaming.CNCtxFactory");
+                env.put(Context.PROVIDER_URL, "iiop://localhost:1050");
+                Context ctx = new InitialContext(env);
+
+                org.omg.CORBA.Object objRef = (Object) ctx.lookup("RSI2020");
+
+                // resolve the Object Reference in Naming:
+                helloImplstub = HelloHelper.narrow(objRef);
+
+                // juste pour voir de quoi a l’air la référence:
+                System.out.println("On a obtenu un gestionnare pour le serveur d'objet " + helloImplstub);
+                
+                // l’appel de la méthode distante:
+                System.out.println(helloImplstub.sayHello());
+                helloImplstub.shutdown();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+========================================================= Create the jndi.properties file =========================================================
+
+- We add the file inside the src folder (default package) of both projects 'CorbaServerJindi' and 'CorbaClientJindi' with this content:
+    java.naming.factory.initial=com.sun.jndi.cosnaming.CNCtxFactory
+    java.naming.provider.url=iiop://localhost:1050
+
+========================================================= Execute =========================================================
+
+1- We open the terminal in CorbaServerJindi/bin
+
+2- tnameserv -ORBInitialPort 1050
+
+3- Lancer le serveur 'HelloServer'
+
+4- Lancer le client 'HelloClient'

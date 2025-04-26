@@ -1,0 +1,48 @@
+----------------------------- Add the OpenJDK PPA -----------------------------
+
+sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt update
+
+----------------------------- Install OpenJDK 8 -----------------------------
+
+sudo apt install openjdk-8-jdk
+
+----------------------------- Extract the ZIP and set permissions -----------------------------
+
+sudo unzip wso2is-5.3.0.zip -d /opt/wso2
+
+----------------------------- Create the wso2 User -----------------------------
+
+sudo useradd --system --home /opt/wso2 wso2
+
+sudo passwd wso2 => nzidou wraha el password
+
+----------------------------- Set Permissions for WSO2 Directory -----------------------------
+
+sudo chown -R wso2:wso2 /opt/wso2
+sudo chmod -R u+rw /opt/wso2
+
+----------------------------- Edit the Startup Script -----------------------------
+
+sudo nano /opt/wso2/wso2is-5.3.0/bin/wso2server.sh
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 => Add the following line near the top of the file, just after #!/bin/sh
+
+----------------------------- Set Execute Permissions -----------------------------
+
+sudo chmod +x /opt/wso2/wso2is-5.3.0/bin/wso2server.sh
+
+----------------------------- Switch to the wso2 User -----------------------------
+
+sudo -u wso2 bash
+
+----------------------------- Navigate to the WSO2 Bin Directory -----------------------------
+
+cd /opt/wso2/wso2is-5.3.0/bin
+
+----------------------------- Run WSO2 -----------------------------
+
+./wso2server.sh
+
+----------------------------- Access the Management Console -----------------------------
+
+https://localhost:9443/carbon
