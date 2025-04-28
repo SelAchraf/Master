@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Policy xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+        PolicyId="access_policy_etudiant"
+        RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:permit-overrides"
+        Version="1.0">
+    <Target/>
+    <Rule Effect="Permit" RuleId="permit_etudiant">
+        <Target>
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ETUDIANT</AttributeValue>
+                        <AttributeDesignator AttributeId="http://wso2.org/claims/role"
+                                             Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                             DataType="http://www.w3.org/2001/XMLSchema#string"
+                                             MustBePresent="true"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+    </Rule>
+    <Rule Effect="Deny" RuleId="deny_all"/>
+</Policy>

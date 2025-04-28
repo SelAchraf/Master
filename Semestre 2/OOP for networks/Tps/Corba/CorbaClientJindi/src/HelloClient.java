@@ -26,7 +26,7 @@ public class HelloClient {
             
             // l’appel de la méthode distante:
             System.out.println(helloImplstub.sayHello());
-            helloImplstub.shutdown();
+//            helloImplstub.shutdown();
         } catch (Exception e) {
             e.printStackTrace();
         }
