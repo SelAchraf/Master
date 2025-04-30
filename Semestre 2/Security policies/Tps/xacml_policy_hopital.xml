@@ -1,0 +1,476 @@
+
+
+
+
+<Policy xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" PolicyId="POLICY_HOSPITAL" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable" Version="1.0">
+   <Target>
+      <AnyOf>
+         <AllOf>
+            <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+               <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">IBN_ROCHD</AttributeValue>
+               <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:environment:environment-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+            </Match>
+         </AllOf>
+      </AnyOf>
+   </Target>
+   <Rule Effect="Permit" RuleId="Rule-1">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DOSSIER_MEDICAUX</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">LIRE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DOCTOR</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-2">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DOSSIER_MEDICAUX</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">UPDATE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DOCTOR</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-3">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ANALYSE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DEMANDER</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DOCTOR</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-4">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DOSSIER_MEDICAUX</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">LIRE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">NURSE</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-5">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DOSSIER_MEDICAUX</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">UPDATE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">NURSE</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-6">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">TRAITEMENT</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ADMINISTRER</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">NURSE</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-7">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PRESCRIPTIONS_MEDICAUX</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">LIRE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PHARMACIST</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-8">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">MEDICAMENTS</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PREPARER</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PHARMACIST</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-9">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">MEDICAMENTS</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DELIVRER</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PHARMACIST</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-10">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">STOCK</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">UPDATE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PHARMACIST</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-11">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DEMANDES_ANALYSE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">LIRE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">LABORATORY_TECHNICIAN</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-12">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ANALYSE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ECRIRE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">LABORATORY_TECHNICIAN</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-13">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">RDV</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PLANIFIER</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">MEDICIAL_SECRETARY</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-14">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DOSSIER_ADMINISTRATIF</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">LIRE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">MEDICIAL_SECRETARY</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-15">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">DOSSIER_ADMINISTRATIF</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">UPDATE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">MEDICIAL_SECRETARY</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-16">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ADMISSION</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GERER</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">MEDICIAL_SECRETARY</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Permit" RuleId="Rule-17">
+      <Target>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SORTIE</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+         <AnyOf>
+            <AllOf>
+               <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                  <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GERER</AttributeValue>
+                  <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+               </Match>
+            </AllOf>
+         </AnyOf>
+      </Target>
+      <Condition>
+         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:any-of">
+            <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal"/>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">MEDICIAL_SECRETARY</AttributeValue>
+            <AttributeDesignator AttributeId="http://wso2.org/claims/role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+         </Apply>
+      </Condition>
+   </Rule>
+   <Rule Effect="Deny" RuleId="Deny-Rule"/>
+</Policy>        
