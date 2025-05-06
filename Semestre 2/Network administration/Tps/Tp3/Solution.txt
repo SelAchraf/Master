@@ -1,0 +1,23 @@
+================================================= Question 3 =================================================
+
+------------------------------------- L'ajoute des routes statiques aux routeurs -------------------------------------
+
+- en
+
+- show ip route
+
+- conf t
+
+- ip route network_addr mask_addr next_hop_ip_addr
+
+================================================= Question 5 =================================================
+
+------------------------------------- L'ajoute des routes dynamiques aux routeurs -------------------------------------
+
+- en
+
+- conf t
+
+- router rip
+
+- network network_addr

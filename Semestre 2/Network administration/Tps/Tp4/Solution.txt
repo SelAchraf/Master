@@ -1,0 +1,35 @@
+================================================= Question 3 =================================================
+
+------------------------------------- Mode access -------------------------------------
+
+- Go to the switch
+
+- en 
+
+- conf t
+
+- vlan vlan_id
+
+- name vlan_name
+
+- do show vlan
+
+- exit
+
+- interface interface_name
+
+- switchport mode access
+
+- switchport acces vlan vlan_id
+
+- no vlan vlan_id
+
+------------------------------------- Mode trunk -------------------------------------
+
+- switchport trunk allowed vlan 2
+
+- switchport trunk allowed vlan all
+
+================================================= Question 4 =================================================
+
+------------------------------------- L'ajoute des routes statiques aux routeurs -------------------------------------

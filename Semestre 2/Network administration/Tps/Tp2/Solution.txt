@@ -1,0 +1,19 @@
+================================================= Question 2 =================================================
+
+- Le type de cable est: droit
+
+================================================= Question 3 =================================================
+
+- Le type de cable est: console
+
+------------------------------------- Configuration des interfaces du routeur -------------------------------------
+
+- en
+
+- conf t
+
+- interface Gig0/0
+
+- ip address ip_address subnet_mask
+
+- no shutdown
