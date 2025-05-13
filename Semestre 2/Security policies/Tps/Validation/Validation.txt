@@ -1,0 +1,205 @@
+1 => Les rôles:
+
+[
+  "CLIENT",
+  "AGENT_LOCATION",  
+  "GESTIONNAIRE_FLOTTES",  
+  "MECANICIEN", 
+  "COMPTABLE",  
+  "ANALYSTE_DONNEES",  
+  "ADMIN_SYSTEME",  
+  "RESPONSABLE_COMMERCIAL",  
+  "TECHNICIEN_SUPPORT",  
+  "RESPONSABLE_AGENCE",  
+  "CONTROLE_QUALITE"
+]
+
+
+
+
+
+2 => Les utilisateurs et leurs affectations:
+
+{
+  "KARIM": ["CLIENT"],
+  "AMINA": ["CLIENT"],
+  
+  "WALID": ["AGENT_LOCATION"],
+  "SARRA": ["AGENT_LOCATION"],
+  
+  "HICHEM": ["GESTIONNAIRE_FLOTTES"],
+  
+  "ZOUHIR": ["MÉCANICIEN"],
+  
+  "MERIEM": ["COMPTABLE"],
+  
+  "NADIR": ["ANALYSTE_DONNÉES"],
+  
+  "LINA": ["ADMIN_SYSTÈME"],
+  
+  "YACINE": ["CLIENT", "ANALYSTE_DONNÉES"],
+  
+  "NOUR": ["AGENT_LOCATION", "GESTIONNAIRE_FLOTTES"],
+  
+  "REDA": ["ADMIN_SYSTÈME", "COMPTABLE"],
+  
+  "SALIM": ["RESPONSABLE_COMMERCIAL"],
+  
+  "IMANE": ["TECHNICIEN_SUPPORT"],
+  
+  "FOUAD": ["RESPONSABLE_AGENCE"],
+  
+  "NESRINE": ["CONTROLE_QUALITE"]
+}
+
+
+
+
+
+3 => Les ressources protégées:
+
+[
+  "CONTRATS_LOCATION",
+  "VÉHICULES",
+  "CLIENTS",
+  "FACTURES",
+  "PLANNING_ENTRETIEN",
+  "DONNÉES_STATISTIQUES",
+  "UTILISATEURS",
+  "POLITIQUES_ACCÈS",
+  "RAPPORTS_PERFORMANCE",
+  "RÉCLAMATIONS_CLIENTS",
+  "PARAMÈTRES_AGENCE",
+  "RÉSERVATIONS",
+  "DISPONIBILITÉ_VÉHICULES",
+  "CONTRATS_SIGNÉS",
+  "PROFIL"
+]
+
+
+
+
+
+4 => L'ensemble de règles d'accès:
+
+RESOURCE                    | USER ROLE                  | ACTION
+----------------------------|----------------------------|-------------------------
+CONTRATS_LOCATION           | CLIENT                     | CONSULTER
+----------------------------|----------------------------|-------------------------
+PROFIL                      | CLIENT                     | MODIFIER
+----------------------------|----------------------------|-------------------------
+VÉHICULES                   | CLIENT                     | RÉSERVER
+----------------------------|----------------------------|-------------------------
+RÉSERVATIONS                | CLIENT                     | ANNULER
+----------------------------|----------------------------|-------------------------
+DISPONIBILITÉ_VÉHICULES     | CLIENT                     | CONSULTER
+----------------------------|----------------------------|-------------------------
+FACTURES                    | CLIENT                     | PAYER
+----------------------------|----------------------------|-------------------------
+CONTRATS_SIGNÉS             | CLIENT                     | TÉLÉCHARGER
+----------------------------|----------------------------|-------------------------
+CONTRATS_LOCATION           | AGENT_LOCATION             | CRÉER
+----------------------------|----------------------------|-------------------------
+CONTRATS_LOCATION           | AGENT_LOCATION             | MODIFIER
+----------------------------|----------------------------|-------------------------
+CLIENTS                     | AGENT_LOCATION             | CONSULTER
+----------------------------|----------------------------|-------------------------
+VÉHICULES                   | GESTIONNAIRE_FLOTTES       | AJOUTER
+----------------------------|----------------------------|-------------------------
+PLANNING_ENTRETIEN          | GESTIONNAIRE_FLOTTES       | CONSULTER
+----------------------------|----------------------------|-------------------------
+PARAMÈTRES_AGENCE           | GESTIONNAIRE_FLOTTES       | CONSULTER
+----------------------------|----------------------------|-------------------------
+UTILISATEURS                | ADMIN_SYSTÈME              | AJOUTER/MODIFIER/SUPPRIMER
+----------------------------|----------------------------|-------------------------
+POLITIQUES_ACCÈS            | ADMIN_SYSTÈME              | AJOUTER/MODIFIER/SUPPRIMER
+----------------------------|----------------------------|-------------------------
+PARAMÈTRES_AGENCE           | ADMIN_SYSTÈME              | METTRE_À_JOUR
+----------------------------|----------------------------|-------------------------
+PARAMÈTRES_AGENCE           | RESPONSABLE_AGENCE         | CONFIGURER
+----------------------------|----------------------------|-------------------------
+DONNÉES_STATISTIQUES        | RESPONSABLE_AGENCE         | CONSULTER
+----------------------------|----------------------------|-------------------------
+PLANNING_ENTRETIEN          | MÉCANICIEN                 | METTRE_À_JOUR
+----------------------------|----------------------------|-------------------------
+FACTURES                    | COMPTABLE                  | GÉRER
+----------------------------|----------------------------|-------------------------
+DONNÉES_STATISTIQUES        | ANALYSTE_DONNÉES           | ANALYSER
+----------------------------|----------------------------|-------------------------
+RAPPORTS_PERFORMANCE        | ANALYSTE_DONNÉES           | CONSULTER
+----------------------------|----------------------------|-------------------------
+RAPPORTS_PERFORMANCE        | RESPONSABLE_COMMERCIAL     | CONSULTER
+----------------------------|----------------------------|-------------------------
+RÉCLAMATIONS_CLIENTS        | RESPONSABLE_COMMERCIAL     | TRAITER
+----------------------------|----------------------------|-------------------------
+RÉCLAMATIONS_CLIENTS        | TECHNICIEN_SUPPORT         | GÉRER
+----------------------------|----------------------------|-------------------------
+RAPPORTS_PERFORMANCE        | CONTROLE_QUALITE           | AUDITER
+----------------------------|----------------------------|-------------------------
+RÉCLAMATIONS_CLIENTS        | CONTROLE_QUALITE           | CONSULTER
+----------------------------|----------------------------|-------------------------
+
+
+
+
+
+#exemples de requêtes d’accès autorisées et refusées
+#✅ Cas autorisés :
+         
+           1. CLIENT accessing CONTRATS_LOCATION (CONSULTER)
+  			 Resource: CONTRATS_LOCATION
+  			 Subject Name: KARIM
+  			 Action Name: CONSULTER
+  			 Environment Name: R9
+  			 Expected: Permit ✅
+
+	2. AGENT_LOCATION creating CONTRATS_LOCATION
+  			 Resource: CONTRATS_LOCATION
+  			 Subject Name: WALID
+			 Action Name: CREER
+  			 Environment Name: R9
+   			Expected: Permit ✅
+
+	3. ANALYSTE_DONNEES analyzing data
+  			 Resource: DONNEES_STATISTIQUES
+   			Subject Name: NADIR
+   			Action Name: ANALYSER
+  			 Environment Name: R9
+   			Expected: Permit ✅
+	
+	4. ADMIN_SYSTEME modifying access policies
+ 			  Resource: POLITIQUES_ACCES
+ 			  Subject Name: LINA
+  			 Action Name: MODIFIER
+  			 Environment Name: R9
+   			 Expected: Permit ✅
+
+#❌ Cas refusés :
+            
+         1. CLIENT trying to manage invoices
+ 		 	 Resource: FACTURES
+  			 Subject Name: KARIM
+   			Action Name: GERER
+  			 Environment Name: R9
+   			Expected: Deny ❌
+
+	2. MECANICIEN trying to modify contracts
+ 		  Resource: CONTRATS_LOCATION
+ 		  Subject Name: ZOUHIR
+  		 Action Name: MODIFIER
+  		 Environment Name: R9
+  		 Expected: Deny ❌
+
+	3. CLIENT trying to delete users
+		  Resource: UTILISATEURS
+ 		  Subject Name: AMINA
+  		  Action Name: SUPPRIMER
+ 		  Environment Name: R9
+   		  Expected: Deny ❌
+
+	4. AGENT_LOCATION trying to modify agency settings
+  		 Resource: PARAMETRES_AGENCE
+  		 Subject Name: SARRA
+  		 Action Name: MODIFIER
+ 		  Environment Name: R9
+ 		  Expected: Deny ❌
