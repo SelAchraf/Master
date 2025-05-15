@@ -1,6 +1,6 @@
 =============================== Install wazuh agent ===============================
 
-wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.11.0-1_amd64.deb && sudo WAZUH_MANAGER='192.168.81.111' WAZUH_AGENT_NAME='agent_2' dpkg -i ./wazuh-agent_4.11.0-1_amd64.deb
+wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.11.0-1_amd64.deb && sudo WAZUH_MANAGER='192.168.116.111' WAZUH_AGENT_NAME='agent_9' dpkg -i ./wazuh-agent_4.11.0-1_amd64.deb
 
 =============================== Enable wazuh agent ===============================
 
@@ -25,6 +25,8 @@ sudo apt-get autoremove
 =============================== Ossec.conf path ===============================
 
 /var/ossec/etc/ossec.conf
+
+ip -4 addr show wlo1 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
 
 =============================== Add vulnerability detection (ossec.conf) ===============================
 
