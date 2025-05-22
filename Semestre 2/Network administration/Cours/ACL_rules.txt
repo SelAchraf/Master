@@ -1,0 +1,87 @@
+============================================================================== Standard ACL Rule ==============================================================================
+
+################################################## Numbered ##################################################
+
+--------------------- Create With Rules ---------------------
+
+en
+conf t
+ip access-list standard acl_number
+action src
+
+--------------------- Apply ---------------------
+
+interface interface_name
+ip access-group acl_number direction
+
+--------------------- Delete ---------------------
+
+no ip access-list standard acl_number
+
+################################################## Named ##################################################
+
+--------------------- Create With Rules ---------------------
+
+en
+conf t
+ip access-list standard acl_name 
+action src
+
+--------------------- Apply ---------------------
+
+interface interface_name
+ip access-group acl_name direction
+
+--------------------- Delete ---------------------
+
+no ip access-list standard acl_name
+
+============================================================================== Extended ACL Rule ==============================================================================
+
+################################################## Numbered ##################################################
+
+--------------------- Create With Rules ---------------------
+
+en
+conf t
+ip access-list extended acl_number
+action protocol src op src_port dest op dest_port
+
+--------------------- Apply ---------------------
+
+interface interface_name
+ip access-group acl_number direction
+
+--------------------- Delete ---------------------
+
+no ip access-list extended acl_number
+
+################################################## Named ##################################################
+
+--------------------- Create With Rules ---------------------
+
+en
+conf t
+ip access-list extended acl_name
+action protocol src op src_port dest op dest_port
+
+--------------------- Apply ---------------------
+
+interface interface_name
+ip access-group acl_name direction
+
+--------------------- Delete ---------------------
+
+no ip access-list extended acl_name
+
+==============================================================================  Informations ==============================================================================
+
+action = permit / deny
+
+protocol = ip / tcp / icmp / udp
+
+src / dest = host ip_address / subnet_address wildcard_mask / any
+
+op = eq / lt / gt / le / ge / ne
+
+direction = in / out

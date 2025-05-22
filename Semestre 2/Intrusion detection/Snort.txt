@@ -1,0 +1,56 @@
+============================================================ Introduction ============================================================
+
+snort -V or --version => Get information about the snort instance version
+
+sudo snort -c /etc/snort/snort.conf -T => to test that the configuration file is valid
+
+Start a traffic => sudo ./traffic-generator.sh
+
+============================================================ Sniffer Mode ============================================================
+
+Verbose => sudo snort -v => Display the TCP/IP output
+
+Dump => sudo snort -d => Display the packet data (payload)
+
+Link-layer header grabbing => sudo snort -e => Display the link-layer (TCP/IP/UDP/ICMP) headers
+
+Full packet dump => sudo snort -X => Display the full packet details in HEX
+
+Define a specific network interface to sniff => add -i interface_name in the end of the command
+
+============================================================ Logger Mode ============================================================
+
+pcap (binary) file => sudo snort -dev -l => for deep analysis with external tools
+
+packets in readable text format (ASCII) => sudo snort -dev -K ASCII -l => just to read and understand what’s going on quickly
+
+read only binary logs => sudo snort -r log_name => i can use -n number_of_packets to specify the number of processes
+                                                => i can use a filter in the end of command like: -X or icmp or tcp or 'udp and port 53'
+
+============================================================ IDS/IPS Mode ============================================================
+
+----------------------------- IDS Mode -----------------------------
+
+Fast mode => sudo snort -c /etc/snort/snort.conf -A fast => shows the alert message, timestamp, source and destination ıp along with port numbers
+
+Full mode (default mode) => sudo snort -c /etc/snort/snort.conf -A full => provides all possible information about the alert
+
+None mode => sudo snort -c /etc/snort/snort.conf -A none => Snort will generate a log file without alerts file
+
+Console mode => sudo snort -c /etc/snort/snort.conf -A console => provides fast style alerts on the console screen
+
+Placement of the rules file => /etc/snort/rules/local.rules
+
+I can replace the config file path with the rules file path
+
+----------------------------- IPS Mode (inline mode) -----------------------------
+
+sudo snort -c /etc/snort/snort.conf -q -Q --daq afpacket -i eth0:eth1 -A console
+
+-Q => To activate inline mode
+
+--daq afpacket => to use the DAQ (Data Acquisition) module named afpacket
+
+-q => for quiet mode
+
+This mode requires at least 2 interfaces
