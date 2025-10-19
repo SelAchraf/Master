@@ -1,0 +1,25 @@
+sudo apt update
+
+sudo apt install -y make diffutils pkg-config ccache clang lld gdb lldb \
+bison flex perl sed gawk python3 python3-pip python3-venv python3-dev \
+libxml2-dev zlib1g-dev doxygen graphviz xdg-utils libdw-dev
+
+cd ~
+
+wget https://github.com/omnetpp/omnetpp/releases/download/omnetpp-6.2.0/omnetpp-6.2.0-linux-x86_64.tgz
+
+tar xvfz omnetpp-6.2.0-linux-x86_64.tgz
+
+cd omnetpp-6.2.0
+
+./install.sh
+
+echo 'export PATH="$HOME/omnetpp-6.2.0/bin:$PATH"' >> ~/.bashrc
+
+source ~/.bashrc
+
+opp_run -v
+
+cd samples/dyna
+
+./dyna
