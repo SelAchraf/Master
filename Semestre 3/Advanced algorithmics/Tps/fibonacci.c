@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-long long fibonacciRecursive(int n) {
+long long fibonacci(int n) {
     if (n <= 1) {
         return n;
     } else {
-        return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
+        return fibonacci(n - 1) + fibonacci(n - 2);
     }
 }
 
@@ -18,7 +18,7 @@ int main() {
     }
 
     printf("\n--- Fibonacci of %u ---\n", num);
-    printf("Iterative: %llu\n", fibonacciRecursive(num));
+    printf("Iterative: %llu\n", fibonacci(num));
     
     return 0;
 }

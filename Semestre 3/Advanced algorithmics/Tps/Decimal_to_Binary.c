@@ -2,12 +2,12 @@
 #include <string.h>
 #include <stdlib.h>
 
-int decimalToBinaryRecursive(int n) {
+int decimalToBinary(int n) {
     if (n == 0) {
         return 0;
     }
     else {
-        return (n % 2) + 10 * decimalToBinaryRecursive(n / 2);
+        return (n % 2) + 10 * decimalToBinary(n / 2);
     }
 }
 
@@ -22,7 +22,7 @@ int main() {
         return 1;
     }
 
-    int binaryResult = decimalToBinaryRecursive(decimalInput);
+    int binaryResult = decimalToBinary(decimalInput);
 
     printf("Decimal: %d\n", decimalInput);
     printf("Binary:  %d\n", binaryResult);

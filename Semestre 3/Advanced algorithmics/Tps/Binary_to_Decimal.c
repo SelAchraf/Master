@@ -2,21 +2,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-int binaryToDecimalIterative(unsigned long long n) {
-    int decimalResult = 0;
-    int base = 1; // Represents (2^0)
-
-    while (n > 0) {
-        int lastDigit = n % 10;
-        
-        n = n / 10;
-        
-        decimalResult += lastDigit * base;
-        
-        base = base * 2;
+int binaryToDecimal(unsigned long long n) {
+    if (n == 0) {
+        return 0;
+    } 
+    else {
+        return (n % 10) + 2 * binaryToDecimal(n / 10);
     }
-    
-    return decimalResult;
 }
 
 int main() {
@@ -29,8 +21,8 @@ int main() {
         printf("Error: Invalid input.\n");
         return 1;
     }
-
-    int decimal = binaryToDecimalIterative(binaryInput);
+    
+    int decimal = binaryToDecimal(binaryInput);
 
     printf("\nBinary:   %llu\n", binaryInput);
     printf("Decimal: %d\n", decimal);
