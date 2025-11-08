@@ -1,0 +1,40 @@
+version 3
+run General-2-20251103-09:32:31-17410
+attr configname General
+attr datetime 20251103-09:32:31
+attr datetimef 20251103-093231
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Network
+attr processid 17410
+attr repetition 2
+attr replication #2
+attr resultdir results
+attr runnumber 2
+attr seedset 2
+config network Network
+config **.queueLength.result-recording-modes "vector, histogram"
+config check-signals true
+config repeat 4
+config seed-set 2
+config sim-time-limit 10s
+
+vector 0 Network.file length:vector ETV
+attr recordingmode vector
+attr source queueLength
+attr title "la longeur de la file"
+0	2	0.772691989627	1
+0	5	0.977359873903	2
+0	6	1.00362811075	3
+0	8	3.685146371206	4
+0	10	4.482904295106	5
+0	12	7.434248667783	6
+0	14	8.005748985906	7
+0	16	8.668850291044	8
+0	18	9.214211808262	9
+0	20	9.600663477284	10
+

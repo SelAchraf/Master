@@ -1,0 +1,54 @@
+version 3
+run General-3-20251103-09:28:08-16477
+attr configname General
+attr datetime 20251103-09:28:08
+attr datetimef 20251103-092808
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Network
+attr processid 16477
+attr repetition 3
+attr replication #3
+attr resultdir results
+attr runnumber 3
+attr seedset 3
+config network Network
+config **.queueLength.result-recording-modes "vector, histogram"
+config check-signals true
+config repeat 4
+config seed-set 3
+config sim-time-limit 10s
+
+par Network.generator.out.channel typename "\"ned.DelayChannel\""
+par Network.generator.out.channel disabled false
+attr mutable ""
+par Network.generator.out.channel delay 0.2s
+attr mutable ""
+attr unit s
+par Network.generator typename "\"Gen\""
+par Network.generator k 10
+par Network.generator lambda 1
+par Network.generator T 1
+par Network.file typename "\"File\""
+scalar Network.file length:min 1
+attr recordingmode min
+attr source queueLength
+attr title "la longeur de la file, min"
+scalar Network.file length:max 10
+attr recordingmode max
+attr source queueLength
+attr title "la longeur de la file, max"
+scalar Network.file length:mean 5.5
+attr recordingmode mean
+attr source queueLength
+attr title "la longeur de la file, mean"
+scalar Network.file length:sum 55
+attr recordingmode sum
+attr source queueLength
+attr title "la longeur de la file, sum"
+par Network typename "\"Network\""
+

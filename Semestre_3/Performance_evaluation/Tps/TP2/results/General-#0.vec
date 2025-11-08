@@ -1,0 +1,27 @@
+version 3
+run General-0-20251103-09:00:09-11415
+attr configname General
+attr datetime 20251103-09:00:09
+attr datetimef 20251103-090009
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Network
+attr processid 11415
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config network Network
+config .generator.T 1.0
+config .generator.lambda 1.0
+
+vector 0 Network.file lenght:vector ETV
+attr recordingmode vector
+attr source queueLenght
+attr title "la longeur de la file"
+
