@@ -1,5 +1,5 @@
 #
-# OMNeT++/OMNEST Makefile for TP2
+# OMNeT++/OMNEST Makefile for TP3_V4
 #
 # This file was generated with the command:
 #  opp_makemake -f --deep -O out -I.
@@ -7,7 +7,7 @@
 
 # Name of target to be created (-o option)
 TARGET_DIR = .
-TARGET_NAME = TP2$(D)
+TARGET_NAME = TP3_V4$(D)
 TARGET = $(TARGET_NAME)$(EXE_SUFFIX)
 TARGET_FILES = $(TARGET_DIR)/$(TARGET)
 
@@ -31,7 +31,7 @@ PROJECTRELATIVE_PATH =
 O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
-OBJS = $O/Noeud.o
+OBJS = $O/Generate.o
 
 # Message files
 MSGFILES =

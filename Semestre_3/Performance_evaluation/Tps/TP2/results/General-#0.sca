@@ -1,0 +1,36 @@
+version 3
+run General-0-20251110-00:07:12-10616
+attr configname General
+attr datetime 20251110-00:07:12
+attr datetimef 20251110-000712
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Network
+attr processid 10616
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config network Network
+
+par Network.sender.out.channel typename "\"ned.DelayChannel\""
+par Network.sender.out.channel disabled false
+attr mutable ""
+par Network.sender.out.channel delay 0.1s
+attr mutable ""
+attr unit s
+par Network.receiver.out.channel typename "\"ned.DelayChannel\""
+par Network.receiver.out.channel disabled false
+attr mutable ""
+par Network.receiver.out.channel delay 0.1s
+attr mutable ""
+attr unit s
+par Network.sender typename "\"Noeud\""
+par Network.receiver typename "\"Noeud\""
+par Network typename "\"Network\""
+
