@@ -16,7 +16,7 @@ struct Node* inserer(struct Node* noeud, int valeur);
 int hauteur(struct Node* racine);
 int facteurEquilibre(struct Node* noeud);
 int estEquilibre(struct Node* racine);
-void parcoursInfixe(struct Node* racine);
+void afficherArbre(struct Node* racine, int espace);
 struct Node* rotationGauche(struct Node* y);
 struct Node* rotationDroite(struct Node* x);
 struct Node* equilibrer(struct Node* racine);
@@ -29,6 +29,40 @@ struct Node* creerNoeud(int valeur) {
     nouveauNoeud->gauche = NULL;
     nouveauNoeud->droit = NULL;
     return nouveauNoeud;
+}
+
+// Fonction pour afficher l'arbre graphiquement
+void afficherArbre(struct Node* racine, int espace) {
+    if (racine == NULL) {
+        return;
+    }
+    
+    // Afficher le noeud actuel avec l'indentation appropriée
+    for (int i = 0; i < espace; i++) {
+        printf("  ");
+    }
+    printf("%d\n", racine->data);
+    
+    // Augmenter l'espacement pour les sous-arbres
+    espace += 1;
+    
+    // Afficher le sous-arbre gauche
+    if (racine->gauche != NULL) {
+        for (int i = 0; i < espace; i++) {
+            printf("  ");
+        }
+        printf("G: ");
+        afficherArbre(racine->gauche, espace + 1);
+    }
+    
+    // Afficher le sous-arbre droit
+    if (racine->droit != NULL) {
+        for (int i = 0; i < espace; i++) {
+            printf("  ");
+        }
+        printf("D: ");
+        afficherArbre(racine->droit, espace + 1);
+    }
 }
 
 // Fonction pour insérer un noeud
@@ -82,19 +116,19 @@ int estEquilibre(struct Node* racine) {
         return 1;
     }
     int fe = facteurEquilibre(racine);
-    if (fe > 1) {
+    if (abs(fe) > 1) {
         return 0;
     }
     return estEquilibre(racine->gauche) && estEquilibre(racine->droit);
 }
 
 // Fonction pour la rotation gauche
-struct Node* rotationGauche(struct Node* y) {
-    struct Node* x = y->droit;
-    struct Node* T2 = x->gauche;
-    x->gauche = y;
-    y->droit = T2;
-    return x;
+struct Node* rotationGauche(struct Node* x) {
+    struct Node* y = x->droit;
+    struct Node* T2 = y->gauche;
+    y->gauche = x;
+    x->droit = T2;
+    return y;
 }
 
 // Fonction pour la rotation droite
@@ -110,23 +144,23 @@ struct Node* rotationDroite(struct Node* x) {
 struct Node* equilibrer(struct Node* racine) {
     int fe = facteurEquilibre(racine);
 
-    // Cas gauche-gauche
+    // Cas gauche-gauche (rotation droite simple)
     if (fe > 1 && facteurEquilibre(racine->gauche) >= 0) {
         return rotationDroite(racine);
     }
 
-    // Cas droite-droite
+    // Cas droite-droite (rotation gauche simple)
     if (fe < -1 && facteurEquilibre(racine->droit) <= 0) {
         return rotationGauche(racine);
     }
 
-    // Cas gauche-droite
+    // Cas gauche-droite (rotation double GD)
     if (fe > 1 && facteurEquilibre(racine->gauche) < 0) {
         racine->gauche = rotationGauche(racine->gauche);
         return rotationDroite(racine);
     }
 
-    // Cas droite-gauche
+    // Cas droite-gauche (rotation double DG)
     if (fe < -1 && facteurEquilibre(racine->droit) > 0) {
         racine->droit = rotationDroite(racine->droit);
         return rotationGauche(racine);
@@ -138,7 +172,7 @@ struct Node* equilibrer(struct Node* racine) {
 // --- Fonction Principale avec Menu ---
 int main() {
     struct Node *root = NULL;
-    int choix, val, val2;
+    int choix, val;
     char continuer;
 
     do
@@ -163,6 +197,7 @@ int main() {
         {
         case 1:
             printf("Entrer les valeurs (-1 pour arreter): ");
+            int premierInsertion = (root == NULL) ? 1 : 0;
             while (1)
             {
                 if (scanf("%d", &val) != 1) {
@@ -173,11 +208,20 @@ int main() {
                 
                 if (val == -1)
                     break;
-                root = inserer(root, val);
+                
+                if (premierInsertion && root == NULL) {
+                    root = creerNoeud(val);
+                    premierInsertion = 0;
+                    printf("Racine fixee a: %d\n", val);
+                } else {
+                    inserer(root, val);
+                }
             }
             break;
         case 2:
-            parcoursInfixe(root);
+            printf("\nArbre (rotation 90° - droit=haut, gauche=bas):\n");
+            afficherArbre(root, 0);
+            printf("\n");
             break;
         case 3:
             printf("Hauteur de l'arbre: %d\n", hauteur(root));
@@ -193,8 +237,9 @@ int main() {
             break;
         case 6:
             root = equilibrer(root);
-            printf("Arbre apres equilibration (parcours infixe): ");
-            parcoursInfixe(root);
+            printf("Arbre apres equilibration:\n");
+            afficherArbre(root, 0);
+            printf("\n");
             break;
         case 7:
             printf("Fin du programme.\n");
@@ -204,7 +249,7 @@ int main() {
             printf("Choix invalide.\n");
         }
 
-        if (choix != 9)
+        if (choix != 7)
         {
             printf("Continuer ? (o/n): ");
             if (scanf(" %c", &continuer) != 1) {
