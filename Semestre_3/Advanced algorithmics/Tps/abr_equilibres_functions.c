@@ -20,6 +20,11 @@ void afficherArbre(struct Node* racine, int espace);
 struct Node* rotationGauche(struct Node* y);
 struct Node* rotationDroite(struct Node* x);
 struct Node* equilibrer(struct Node* racine);
+int compterNoeuds(struct Node* racine);
+void remplirTableau(struct Node* racine, int* tableau, int* index);
+struct Node* construireABREquilibre(int* tableau, int debut, int fin);
+void libererArbre(struct Node* racine);
+struct Node* equilibrerParReconstruction(struct Node* racine);
 /* ================================================= */
 
 // Fonction pour créer un nouveau noeud
@@ -169,6 +174,92 @@ struct Node* equilibrer(struct Node* racine) {
     return racine; // Déjà équilibré
 }
 
+// Fonction pour compter le nombre de noeuds dans l'arbre
+int compterNoeuds(struct Node* racine) {
+    if (racine == NULL) {
+        return 0;
+    }
+    return 1 + compterNoeuds(racine->gauche) + compterNoeuds(racine->droit);
+}
+
+// Fonction pour remplir un tableau avec les valeurs de l'arbre (parcours infixe)
+// Le tableau sera automatiquement trié en ordre croissant
+void remplirTableau(struct Node* racine, int* tableau, int* index) {
+    if (racine == NULL) {
+        return;
+    }
+    
+    // Parcours infixe : gauche -> racine -> droite
+    remplirTableau(racine->gauche, tableau, index);
+    tableau[*index] = racine->data;
+    (*index)++;
+    remplirTableau(racine->droit, tableau, index);
+}
+
+// Fonction pour construire un ABR équilibré à partir d'un tableau trié
+// Insertion récursive depuis le milieu
+struct Node* construireABREquilibre(int* tableau, int debut, int fin) {
+    if (debut > fin) {
+        return NULL;
+    }
+    
+    // Trouver l'élément du milieu
+    int milieu = debut + (fin - debut) / 2;
+    
+    // Créer le noeud racine avec l'élément du milieu
+    struct Node* noeud = creerNoeud(tableau[milieu]);
+    
+    // Construire récursivement les sous-arbres gauche et droit
+    noeud->gauche = construireABREquilibre(tableau, debut, milieu - 1);
+    noeud->droit = construireABREquilibre(tableau, milieu + 1, fin);
+    
+    return noeud;
+}
+
+// Fonction pour libérer la mémoire de l'arbre
+void libererArbre(struct Node* racine) {
+    if (racine == NULL) {
+        return;
+    }
+    
+    libererArbre(racine->gauche);
+    libererArbre(racine->droit);
+    free(racine);
+}
+
+// Fonction pour équilibrer l'arbre par reconstruction
+// Méthode : stocker les valeurs triées dans un tableau, puis reconstruire l'arbre
+struct Node* equilibrerParReconstruction(struct Node* racine) {
+    if (racine == NULL) {
+        return NULL;
+    }
+    
+    // 1. Compter le nombre de noeuds
+    int nbNoeuds = compterNoeuds(racine);
+    
+    // 2. Allouer un tableau pour stocker les valeurs
+    int* tableau = (int*)malloc(nbNoeuds * sizeof(int));
+    if (tableau == NULL) {
+        printf("Erreur d'allocation memoire!\n");
+        return racine;
+    }
+    
+    // 3. Remplir le tableau avec les valeurs triées (parcours infixe)
+    int index = 0;
+    remplirTableau(racine, tableau, &index);
+    
+    // 4. Libérer l'ancien arbre
+    libererArbre(racine);
+    
+    // 5. Construire un nouvel arbre équilibré depuis le tableau trié
+    struct Node* nouvelleRacine = construireABREquilibre(tableau, 0, nbNoeuds - 1);
+    
+    // 6. Libérer le tableau
+    free(tableau);
+    
+    return nouvelleRacine;
+}
+
 // --- Fonction Principale avec Menu ---
 int main() {
     struct Node *root = NULL;
@@ -183,8 +274,9 @@ int main() {
         printf("3. Afficher hauteur de l'arbre\n");
         printf("4. Afficher facteur d'equilibre de la racine\n");
         printf("5. Verifier si l'arbre est equilibre\n");
-        printf("6. Equilibrer l'arbre\n");
-        printf("7. Quitter\n");
+        printf("6. Equilibrer l'arbre (par rotations)\n");
+        printf("7. Equilibrer l'arbre (par reconstruction)\n");
+        printf("8. Quitter\n");
         printf("Choix: ");
         
         if (scanf("%d", &choix) != 1) {
@@ -237,11 +329,17 @@ int main() {
             break;
         case 6:
             root = equilibrer(root);
-            printf("Arbre apres equilibration:\n");
+            printf("Arbre apres equilibration (par rotations):\n");
             afficherArbre(root, 0);
             printf("\n");
             break;
         case 7:
+            root = equilibrerParReconstruction(root);
+            printf("Arbre apres equilibration (par reconstruction):\n");
+            afficherArbre(root, 0);
+            printf("\n");
+            break;
+        case 8:
             printf("Fin du programme.\n");
             break;
 
@@ -249,7 +347,7 @@ int main() {
             printf("Choix invalide.\n");
         }
 
-        if (choix != 7)
+        if (choix != 8)
         {
             printf("Continuer ? (o/n): ");
             if (scanf(" %c", &continuer) != 1) {
