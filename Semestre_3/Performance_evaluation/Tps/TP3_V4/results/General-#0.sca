@@ -1,8 +1,8 @@
 version 3
-run General-3-20251120-08:16:48-8303
+run General-0-20251120-11:10:36-9371
 attr configname General
-attr datetime 20251120-08:16:48
-attr datetimef 20251120-081648
+attr datetime 20251120-11:10:36
+attr datetimef 20251120-111036
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -10,17 +10,17 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network Network
-attr processid 8303
-attr repetition 3
-attr replication #3
+attr processid 9371
+attr repetition 0
+attr replication #0
 attr resultdir results
-attr runnumber 3
-attr seedset 3
+attr runnumber 0
+attr seedset 0
 config network Network
 config **.queueLength.result-recording-modes "vector, histogram"
 config check-signals true
 config repeat 4
-config seed-set 3
+config seed-set 0
 config sim-time-limit 10s
 
 par Network.generator.out.channel typename "\"ned.DelayChannel\""
@@ -38,15 +38,15 @@ scalar Network.file length:min 1
 attr recordingmode min
 attr source queueLength
 attr title "la longeur de la file, min"
-scalar Network.file length:max 10
+scalar Network.file length:max 7
 attr recordingmode max
 attr source queueLength
 attr title "la longeur de la file, max"
-scalar Network.file length:mean 5.5
+scalar Network.file length:mean 4
 attr recordingmode mean
 attr source queueLength
 attr title "la longeur de la file, mean"
-scalar Network.file length:sum 55
+scalar Network.file length:sum 28
 attr recordingmode sum
 attr source queueLength
 attr title "la longeur de la file, sum"

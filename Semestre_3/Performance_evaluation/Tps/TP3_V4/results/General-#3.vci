@@ -1,9 +1,9 @@
-file 924 1762730568                                             
+file 922 1763623036                                             
 version 3
-run General-3-20251110-00:22:31-11691
+run General-3-20251120-08:16:48-8303
 attr configname General
-attr datetime 20251110-00:22:31
-attr datetimef 20251110-002231
+attr datetime 20251120-08:16:48
+attr datetimef 20251120-081648
 attr experiment General
 attr inifile omnetpp.ini
 attr iterationvars ""
@@ -11,7 +11,7 @@ attr iterationvarsd ""
 attr iterationvarsf ""
 attr measurement ""
 attr network Network
-attr processid 11691
+attr processid 8303
 attr repetition 3
 attr replication #3
 attr resultdir results
@@ -28,5 +28,5 @@ vector 0 Network.file length:vector ETV
 attr recordingmode vector
 attr source queueLength
 attr title "la longeur de la file"
-0	707 216 3 20 1.000282390893 8.976939974397 10 1 10 55 385
+0	705 216 3 20 1.000282390893 8.976939974397 10 1 10 55 385
 

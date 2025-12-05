@@ -1,0 +1,43 @@
+version 3
+run lambda4-0-20251205-17:00:33-24588
+attr configname lambda4
+attr datetime 20251205-17:00:33
+attr datetimef 20251205-170033
+attr experiment lambda4
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network MM1
+attr processid 24588
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config extends General
+config GEN.meanInterArrival 4s
+config network MM1
+config sim-time-limit 200000s
+config repeat 10
+config **.serviceMean 12s
+
+vector 0 MM1.File queueLength ETV
+vector 1 MM1.serveur1 lifeTime_server0 ETV
+vector 2 MM1.serveur2 lifeTime_server1 ETV
+vector 3 MM1.serveur3 lifeTime_server2 ETV
+0	5	0	1
+0	5	0	0
+0	8	3.183498018263	1
+0	8	3.183498018263	0
+0	11	8.207221050453	1
+0	11	8.207221050453	0
+0	15	11.900113576336	1
+0	15	11.900113576336	0
+0	18	15.048918136264	1
+1	6	0	10.782724661807
+1	16	11.900113576336	22.547568650433
+2	9	3.183498018263	22.315250544896
+3	12	8.207221050453	23.418544030614
+
