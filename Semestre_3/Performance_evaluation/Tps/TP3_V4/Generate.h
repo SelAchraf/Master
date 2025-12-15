@@ -6,24 +6,24 @@
 using namespace omnetpp;
 
 class Gen : public cSimpleModule {
-private:
-    int numbrmessages;
-    double mean;
-    cMessage *selfMsg;
+    private:
+        int numbrmessages;
+        double mean;
+        cMessage *selfMsg;
 
-protected:
-    virtual void initialize() override;
-    virtual void handleMessage(cMessage *msg) override;
+    protected:
+        virtual void initialize() override;
+        virtual void handleMessage(cMessage *msg) override;
 };
 
 class File : public cSimpleModule {
-private:
-    cQueue myqueue;
-    simsignal_t Numberofjobs;
+    private:
+        cQueue myqueue;
+        simsignal_t Numberofjobs;
 
-protected:
-    virtual void initialize() override;
-    virtual void handleMessage(cMessage *msg) override;
+    protected:
+        virtual void initialize() override;
+        virtual void handleMessage(cMessage *msg) override;
 };
 
-#endif /* GENERATE_H_ */
+#endif

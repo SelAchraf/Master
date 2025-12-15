@@ -11,7 +11,6 @@ network Network
             @display("i=block/control");
         }
         receiver: Noeud {
-
             @display("p=212,61;i=device/antennatower");
         }
     connections:

@@ -1,7 +1,3 @@
-//
-// NED file for the network
-//
-
 simple File
 {
     parameters:
@@ -16,9 +12,8 @@ simple File
 simple Gen
 {
     parameters:
-        int k;
-        double lambda;
-        double T;
+        int jobs;
+        double mean;
     gates:
         output out;
 }
@@ -28,9 +23,6 @@ network Network
     @display("bgb=240,189");
     submodules:
         generator: Gen {
-            k = 10;  // Added missing parameter
-            lambda = 1.0; // Added missing parameter
-            T = 1.0;
             @display("p=48,126;i=abstract/penguin");
         }
         file: File {

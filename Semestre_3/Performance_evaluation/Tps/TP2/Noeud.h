@@ -7,7 +7,7 @@ using namespace omnetpp;
 
 class Noeud : public cSimpleModule
 {
-protected:  // Changed from "Protected" to "protected"
+protected:
     virtual void initialize() override;
     virtual void handleMessage(cMessage *msg) override;
 };
