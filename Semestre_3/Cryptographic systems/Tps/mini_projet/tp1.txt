@@ -1,0 +1,42 @@
+protocol TP1(A,B,S)
+{
+    role A
+    {
+        fresh NA: Nonce;
+        var NB: Nonce;
+
+        send_1(A,S,(A,B));
+        recv_2(S,A,{pk(B),B}sk(S));
+        send_3(A,B,{NA,A}pk(B));
+        recv_6(B,A,{NA,NB}pk(A));
+        send_7(A,B,{NB}pk(B));
+
+        claim_A1(A,Secret,NA);
+        claim_A2(A,Secret,NB);
+        claim_A3(A,Nisynch);
+    }
+
+    role B
+    {
+        fresh NB: Nonce;
+        var NA: Nonce;
+
+        recv_3(A,B,{NA,A}pk(B));
+        send_4(B,S,(B,A));
+        recv_5(S,B,{pk(A),A}sk(S));
+        send_6(B,A,{NA,NB}pk(A));
+        recv_7(A,B,{NB}pk(B));
+
+        claim_B1(B,Secret,NB);
+        claim_B2(B,Secret,NA);
+        claim_B3(B,Nisynch);
+    }
+
+    role S
+    {
+        recv_1(A,S,(A,B));
+        send_2(S,A,{pk(B),B}sk(S));
+        recv_4(B,S,(B,A));
+        send_5(S,B,{pk(A),A}sk(S));
+    }
+}

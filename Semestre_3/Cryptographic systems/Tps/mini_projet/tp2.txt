@@ -1,0 +1,39 @@
+protocol TP2(I,R,S)
+{
+    role I
+    {
+        fresh NI: Nonce;
+        var NR: Nonce;
+        var K: SessionKey;
+
+        send_1(I,R,(I,NI));
+        recv_3(S,I,{R,K,NI,NR}k(I,S),{I,K}k(R,S));
+        send_4(I,R,{I,K}k(R,S),{NR}K);
+
+        claim_I1(I,Secret,K);
+        claim_I2(I,Nisynch);
+    }
+
+    role R
+    {
+        fresh NR: Nonce;
+        var NI: Nonce;
+        var K: SessionKey;
+
+        recv_1(I,R,(I,NI));
+        send_2(R,S,(R,{I,NI,NR}k(R,S)));
+        recv_4(I,R,{I,K}k(R,S),{NR}K);
+
+        claim_R1(R,Secret,K);
+        claim_R2(R,Nisynch);
+    }
+
+    role S
+    {
+        var NI,NR: Nonce;
+        fresh K: SessionKey;
+
+        recv_2(R,S,(R,{I,NI,NR}k(R,S)));
+        send_3(S,I,{R,K,NI,NR}k(I,S),{I,K}k(R,S));
+    }
+}
