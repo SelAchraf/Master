@@ -15,7 +15,7 @@ simple Queue
     gates:
         input in[];      // Des devices
         output out;      // Vers serveur
-        input fromServer;  // ✅ Feedback du serveur
+        input fromServer;  // Feedback du serveur
 }
 
 simple Server
@@ -25,7 +25,7 @@ simple Server
         @display("i=block/server");
     gates:
         input in;
-        output toQueue;  // ✅ Pour notifier la queue
+        output toQueue;  // Pour notifier la queue
 }
 
 network QueueNetwork
@@ -51,5 +51,5 @@ network QueueNetwork
             device[i].out --> queue.in++;
         }
         queue.out --> server.in;
-        server.toQueue --> queue.fromServer;  // ✅ Feedback loop
+        server.toQueue --> queue.fromServer;  // Feedback loop
 }

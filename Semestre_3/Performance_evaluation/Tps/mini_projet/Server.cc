@@ -18,7 +18,7 @@ void Server::initialize()
 void Server::handleMessage(cMessage *msg)
 {
     if (msg->isSelfMessage()) {
-        // ✅ Fin de service
+        // Fin de service
         simtime_t arrivalTime = currentPacket->getTimestamp();
         simtime_t sojournTime = simTime() - arrivalTime;
 
@@ -33,14 +33,14 @@ void Server::handleMessage(cMessage *msg)
         currentPacket = nullptr;
         delete msg;
 
-        // ✅ Notifier la queue que le serveur est libre
+        // Notifier la queue que le serveur est libre
         cMessage *readyMsg = new cMessage("serverReady");
         send(readyMsg, "toQueue");
 
         EV << "Server: Sent 'serverReady' signal to Queue\n";
     }
     else {
-        // ✅ Nouveau paquet de la queue
+        // Nouveau paquet de la queue
         totalCustomers++;
         currentPacket = msg;
 
@@ -54,7 +54,7 @@ void Server::handleMessage(cMessage *msg)
         EV << "Server: Starting service for packet from Device " << deviceId
            << " (waiting time: " << waitingTime << ")\n";
 
-        // ✅ Planifier fin de service
+        // Planifier fin de service
         double serviceTime = exponential(1.0/mu);
         cMessage *endServiceMsg = new cMessage("endService");
         scheduleAt(simTime() + serviceTime, endServiceMsg);

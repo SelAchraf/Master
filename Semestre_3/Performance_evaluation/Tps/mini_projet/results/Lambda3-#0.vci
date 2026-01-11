@@ -1,0 +1,35 @@
+file 25032 1768163099                                           
+version 3
+run Lambda3-0-20260110-14:03:48-8248
+attr configname Lambda3
+attr datetime 20260110-14:03:48
+attr datetimef 20260110-140348
+attr experiment Lambda3
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network QueueNetwork
+attr processid 8248
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config *.lambda 3
+config *.mu 8
+config *.groupSizeP 0.3
+config network QueueNetwork
+config sim-time-limit 10000s
+config repeat 5
+config **.vector-recording true
+config **.scalar-recording true
+
+vector 0 QueueNetwork.queue queueLength ETV
+vector 1 QueueNetwork.server waitingTime ETV
+vector 2 QueueNetwork.server sojournTime ETV
+0	738 11359 2 900 1.836828288901 24.862273278869 463 1 120 28452 2361634
+1	12097 6464 5 901 1.836828288901 24.862273278869 179 0 9.45298500681 847.57640088048 5671.1087469557
+2	18561 6470 6 899 1.908768188511 24.862273278869 178 0.039794517605 9.644717911495 860.99271662765 5794.8981709101
+

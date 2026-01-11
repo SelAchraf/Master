@@ -8,13 +8,13 @@ void Queue::initialize()
     lastEventTime = 0;
     areaUnderQueueLength = 0;
     totalArrivals = 0;
-    serverBusy = false;  // ✅ Serveur libre au début
+    serverBusy = false;  // Serveur libre au début
 }
 
 void Queue::handleMessage(cMessage *msg)
 {
     if (strcmp(msg->getName(), "serverReady") == 0) {
-        // ✅ Le serveur est maintenant libre
+        // Le serveur est maintenant libre
         EV << "Queue: Server is now ready\n";
 
         serverBusy = false;
@@ -24,7 +24,7 @@ void Queue::handleMessage(cMessage *msg)
         tryToSendToServer();
     }
     else {
-        // ✅ Nouveau paquet d'un device
+        // Nouveau paquet d'un device
         totalArrivals++;
 
         int deviceId = msg->par("deviceId");
@@ -47,7 +47,7 @@ void Queue::handleMessage(cMessage *msg)
 
 void Queue::tryToSendToServer()
 {
-    // ✅ Envoyer seulement si serveur libre ET file non vide
+    // Envoyer seulement si serveur libre ET file non vide
     if (!serverBusy && !buffer.empty()) {
         cMessage *packet = buffer.front();
         buffer.pop();
@@ -56,7 +56,7 @@ void Queue::tryToSendToServer()
         EV << "Queue: Sending packet from Device " << deviceId
            << " to Server (queue length now: " << buffer.size() << ")\n";
 
-        serverBusy = true;  // ✅ Marquer serveur comme occupé
+        serverBusy = true;  // Marquer serveur comme occupé
         send(packet, "out");
 
         // Mise à jour statistiques
